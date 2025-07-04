@@ -1,0 +1,8 @@
+.custom-gradient {
+  background: linear-gradient(
+    135deg,          /* 135° = top-left to bottom-right */
+    #880260 0%, 
+    #280020 57%, 
+    #000000 100%
+  );
+}
