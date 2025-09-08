@@ -2,6 +2,7 @@
 import User from "../modals/user.modal.js"
 import Message  from "../modals/message.modal.js"
 import cloudinary from "../lib/cloudnary.js";
+import { io } from "../index.js";
 
 
 export const getUserslider = async (req, res) => {
@@ -47,11 +48,14 @@ export const getUserslider = async (req, res) => {
  
     const newMessage = new Message({
       senderId, 
-      receverId,
+      receverId: receiverId,
       text,
       image:imageUrl
     })
     await newMessage.save()
+
+    // Emit real-time event to receiver
+    io.to(receiverId).emit("newMessage", newMessage);
 
     res.status(200).json(newMessage)
   } catch (error) {

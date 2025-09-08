@@ -44,4 +44,5 @@ getUsers: async () => {
   },
 
   setSelectedUser: (selectedUser) => set({ selectedUser }),
+  setMessage: (message) => set((state) => ({ message: [...state.message, message] })),
 }));

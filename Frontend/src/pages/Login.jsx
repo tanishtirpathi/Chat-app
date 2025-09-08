@@ -84,8 +84,7 @@ const Login = () => {
                   }
                   required
                 />
-                <button
-                  type="button"
+                <h3
                   className="absolute inset-y-0 right-3 flex items-center text-white/40 "
                   onClick={() => setShowPassword(!showPassword)}
                 >
@@ -94,7 +93,7 @@ const Login = () => {
                   ) : (
                     <Eye className="w-5 h-5" />
                   )}
-                </button>
+                </h3>
               </div>
             </div>
 

@@ -5,6 +5,8 @@ import { connectdb } from "./lib/Db.js";
 import cookieParser from "cookie-parser";
 import messageRoute from "./routes/message.route.js";
 import cors from "cors";
+import http from "http";
+import { Server as SocketIOServer } from "socket.io";
 
 dotenv.config();
 const app = express();
@@ -24,7 +26,34 @@ app.use(cors({
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoute);
 
-app.listen(PORT, () => {
+// --- Socket.IO integration ---
+const server = http.createServer(app);
+const io = new SocketIOServer(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    credentials: true
+  }
+});
+
+io.on("connection", (socket) => {
+  console.log("A user connected: " + socket.id);
+
+  // Listen for user identification and join their room
+  socket.on("join", (userId) => {
+    if (userId) {
+      socket.join(userId);
+      console.log(`User ${userId} joined their room`);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected: " + socket.id);
+  });
+});
+
+server.listen(PORT, () => {
   console.log("✅ Server running on port " + PORT);
   connectdb();
 });
+
+export { io };

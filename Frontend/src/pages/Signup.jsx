@@ -16,7 +16,6 @@ import { RainbowButton } from "../components/magicui/rainbow-button";
 import { BorderBeam } from "../components/magicui/border-beam";
 
 const Signup = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -112,7 +111,7 @@ const Signup = () => {
                 <Lock className="w-5 h-5" />
               </span>
               <input
-                type={showPassword ? "text" : "password"}
+                type={"password"}
                 placeholder="••••••••"
                 className="w-full pl-10 pr-10 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:ring-2 focus:ring-primary focus:outline-none"
                 value={formData.password}
@@ -120,17 +119,6 @@ const Signup = () => {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
-              <button
-                type="button"
-                className="absolute inset-y-0 right-3 flex items-center text-white/40 hover:text-white bg-transparent"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? (
-                  <EyeOff className="w-5 h-5" />
-                ) : (
-                  <Eye className="w-5 h-5" />
-                )}
-              </button>
             </div>
           </div>
 
@@ -154,7 +142,7 @@ const Signup = () => {
         {/* Footer */}
         <div className="text-center mt-6 text-white/60 text-sm">
           Already have an account?{" "}
-          <Link to="/login" className="text-primary hover:underline">
+          <Link to="/login" className="text-white  hover:underline">
             Sign in
           </Link>
         </div>
